@@ -18,7 +18,10 @@ class User{
         {return true;}
         return false;
     }
-
+    void setPassword(string &newPassword)
+    {
+        password = newPassword;
+    }
 };
 class UserManager{
     private:
@@ -46,6 +49,16 @@ class UserManager{
     return false;
 
     }
+    bool changePassword(string username,string newPassword){
+       for(User &user:users){
+           if (user.getUserName() == username)
+           {
+             user.setPassword(newPassword);
+           }
+       }
+    
+
+    }
 };
 int main() {
     UserManager userManager;
@@ -55,7 +68,8 @@ int main() {
         cout << "Enter the choice" << endl;
         cout << "1. Login" << endl;
         cout << "2. Registration" << endl;
-        cout << "3. Exit" << endl;
+        cout << "3. Forgot Password" << endl;
+        cout <<"4.Exit"<<endl;
         cin >> choice;
 
         switch (choice) {
@@ -78,13 +92,23 @@ int main() {
                 break;
             }
             case 3:
+            {
+                string username, password;
+                cout << "Enter UserName: ";
+                cin >> username;
+                cout << "Enter New Password: ";
+                cin >> password;
+                userManager.changePassword(username, password);
+                break;
+            }
+            case 4:
                 cout << "Exiting program..." << endl;
                 break;
             default:
                 cout << "Invalid choice" << endl;
                 break;
         }
-    } while (choice != 3);
+    } while (choice != 4);
 
     return 0;
 }
